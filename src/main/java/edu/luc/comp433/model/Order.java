@@ -31,10 +31,10 @@ import edu.luc.comp433.model.enumerator.OrderStatus;
 @Table(schema = "WS")
 @XmlRootElement
 @NamedQueries({
-		@NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o"),
-		@NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id"),
-		@NamedQuery(name = "Orders.findByStatus", query = "SELECT o FROM Orders o WHERE o.status = :status") })
-public class Orders implements Serializable {
+		@NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
+		@NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id"),
+		@NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.status = :status") })
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class Orders implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private OrderStatus status;
-	@ManyToMany(mappedBy = "ordersList", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "orderList", fetch = FetchType.LAZY)
 	private List<Book> bookList;
 	@JoinColumn(name = "user", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -56,19 +56,19 @@ public class Orders implements Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Address address;
 
-	public Orders() {
+	public Order() {
 	}
 
-	public Orders(Short id) {
+	public Order(Short id) {
 		this.id = id;
 	}
 
-	public Orders(Short id, OrderStatus status) {
+	public Order(Short id, OrderStatus status) {
 		this.id = id;
 		this.status = status;
 	}
 
-	public Orders(User user, Address address, List<Book> bookList,
+	public Order(User user, Address address, List<Book> bookList,
 			Payment payment) {
 		this.user = user;
 		this.address = address;
@@ -146,7 +146,7 @@ public class Orders implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Orders other = (Orders) obj;
+		Order other = (Order) obj;
 		if (bookList == null) {
 			if (other.bookList != null)
 				return false;
@@ -177,7 +177,7 @@ public class Orders implements Serializable {
 
 	@Override
 	public String toString() {
-		return "model.Orders[ id=" + id + " ]";
+		return "model.Order[ id=" + id + " ]";
 	}
 
 }

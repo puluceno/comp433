@@ -11,7 +11,7 @@ import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 import edu.luc.comp433.model.Book;
-import edu.luc.comp433.service.BooksService;
+import edu.luc.comp433.service.BookService;
 
 /**
  *
@@ -29,9 +29,9 @@ public final class BookClient {
 
 		factory.getInInterceptors().add(new LoggingInInterceptor());
 		factory.getOutInterceptors().add(new LoggingOutInterceptor());
-		factory.setServiceClass(BooksService.class);
-		factory.setAddress("http://localhost:8080/project2/ListBooks/listAll");
-		BooksService client = (BooksService) factory.create();
+		factory.setServiceClass(BookService.class);
+		factory.setAddress("http://localhost:8080/project2/ListBooks");
+		BookService client = (BookService) factory.create();
 
 		// Test the list all books
 		List<Book> books = client.listAll();

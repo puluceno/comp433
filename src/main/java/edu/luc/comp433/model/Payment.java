@@ -59,7 +59,7 @@ public class Payment implements Serializable {
 	@Basic(optional = false)
 	private BigDecimal amount;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "payment", fetch = FetchType.LAZY)
-	private List<Orders> ordersList;
+	private List<Order> orderList;
 	@JoinColumn(name = "user", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User user;
@@ -102,12 +102,12 @@ public class Payment implements Serializable {
 	}
 
 	@XmlTransient
-	public List<Orders> getOrdersList() {
-		return ordersList;
+	public List<Order> getOrderList() {
+		return orderList;
 	}
 
-	public void setOrdersList(List<Orders> ordersList) {
-		this.ordersList = ordersList;
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 
 	public User getUser() {
@@ -125,7 +125,7 @@ public class Payment implements Serializable {
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((ordersList == null) ? 0 : ordersList.hashCode());
+				+ ((orderList == null) ? 0 : orderList.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -150,10 +150,10 @@ public class Payment implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (ordersList == null) {
-			if (other.ordersList != null)
+		if (orderList == null) {
+			if (other.orderList != null)
 				return false;
-		} else if (!ordersList.equals(other.ordersList))
+		} else if (!orderList.equals(other.orderList))
 			return false;
 		if (type == null) {
 			if (other.type != null)

@@ -46,7 +46,7 @@ public class User implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Address> addressList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Orders> ordersList;
+	private List<Order> orderList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Payment> paymentList;
 
@@ -105,12 +105,12 @@ public class User implements Serializable {
 	}
 
 	@XmlTransient
-	public List<Orders> getOrdersList() {
-		return ordersList;
+	public List<Order> getOrderList() {
+		return orderList;
 	}
 
-	public void setOrdersList(List<Orders> ordersList) {
-		this.ordersList = ordersList;
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 
 	@XmlTransient
@@ -132,7 +132,7 @@ public class User implements Serializable {
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
-				+ ((ordersList == null) ? 0 : ordersList.hashCode());
+				+ ((orderList == null) ? 0 : orderList.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result
@@ -169,10 +169,10 @@ public class User implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (ordersList == null) {
-			if (other.ordersList != null)
+		if (orderList == null) {
+			if (other.orderList != null)
 				return false;
-		} else if (!ordersList.equals(other.ordersList))
+		} else if (!orderList.equals(other.orderList))
 			return false;
 		if (password == null) {
 			if (other.password != null)

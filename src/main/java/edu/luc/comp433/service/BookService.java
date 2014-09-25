@@ -13,7 +13,8 @@ import edu.luc.comp433.model.Book;
  *
  */
 @WebService
-public interface BooksService {
+public interface BookService {
+	
 	public List<Book> listAll();
 
 	public Book searchByTitle(String name);

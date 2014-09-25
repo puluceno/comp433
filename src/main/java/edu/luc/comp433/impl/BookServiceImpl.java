@@ -7,15 +7,15 @@ import javax.jws.WebService;
 
 import edu.luc.comp433.dao.BookDAO;
 import edu.luc.comp433.model.Book;
-import edu.luc.comp433.service.BooksService;
+import edu.luc.comp433.service.BookService;
 
 /**
  *
  * @author Thiago Vieira Puluceno
  *
  */
-@WebService(endpointInterface = "edu.luc.comp433.service.ListBooks")
-public class BooksServiceImpl implements BooksService {
+@WebService(endpointInterface = "edu.luc.comp433.service.BookService")
+public class BookServiceImpl implements BookService {
 
 	BookDAO bookDAO = new BookDAO();
 

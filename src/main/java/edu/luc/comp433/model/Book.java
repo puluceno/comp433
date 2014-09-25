@@ -56,9 +56,9 @@ public class Book implements Serializable {
 	@Min(value = 0)
 	@Basic(optional = false)
 	private BigDecimal price;
-	@JoinTable(name = "Orders_has_Book", joinColumns = { @JoinColumn(name = "book", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "orders", referencedColumnName = "id") })
+	@JoinTable(name = "Order_has_Book", joinColumns = { @JoinColumn(name = "book", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order", referencedColumnName = "id") })
 	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Orders> ordersList;
+	private List<Order> orderList;
 
 	public Book() {
 	}
@@ -107,12 +107,12 @@ public class Book implements Serializable {
 	}
 
 	@XmlTransient
-	public List<Orders> getOrdersList() {
-		return ordersList;
+	public List<Order> getOrderList() {
+		return orderList;
 	}
 
-	public void setOrdersList(List<Orders> ordersList) {
-		this.ordersList = ordersList;
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class Book implements Serializable {
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((ordersList == null) ? 0 : ordersList.hashCode());
+				+ ((orderList == null) ? 0 : orderList.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;

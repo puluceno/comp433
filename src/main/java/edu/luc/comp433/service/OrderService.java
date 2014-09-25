@@ -8,7 +8,6 @@ import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.model.Payment;
 import edu.luc.comp433.model.User;
-import edu.luc.comp433.model.enumerator.OrderStatus;
 
 /**
  *

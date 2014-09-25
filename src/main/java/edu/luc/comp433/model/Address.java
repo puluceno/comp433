@@ -61,7 +61,7 @@ public class Address implements Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User user;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
-	private List<Orders> ordersList;
+	private List<Order> orderList;
 
 	public Address() {
 	}
@@ -145,12 +145,12 @@ public class Address implements Serializable {
 		this.user = user;
 	}
 
-	public List<Orders> getOrdersList() {
-		return ordersList;
+	public List<Order> getOrderList() {
+		return orderList;
 	}
 
-	public void setOrdersList(List<Orders> ordersList) {
-		this.ordersList = ordersList;
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
 	}
 
 	@Override

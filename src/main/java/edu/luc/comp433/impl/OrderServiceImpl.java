@@ -5,7 +5,7 @@ import java.util.List;
 import edu.luc.comp433.dao.OrderDAO;
 import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
-import edu.luc.comp433.model.Orders;
+import edu.luc.comp433.model.Order;
 import edu.luc.comp433.model.Payment;
 import edu.luc.comp433.model.User;
 import edu.luc.comp433.model.enumerator.OrderStatus;
@@ -27,29 +27,52 @@ public class OrderServiceImpl implements OrderService {
 		try {
 			verifyOrder(user, address, books, payment);
 		} catch (Exception e) {
-
+			return e.getMessage();
 		}
 		try {
-			orderDAO.createOrder(new Orders(user, address, books, payment));
+			orderDAO.createOrder(new Order(user, address, books, payment));
 			return "Order created!";
 		} catch (Exception e) {
 			return "System error";
 		}
 	}
 
+	/**
+	 *
+	 * @param user
+	 * @param address
+	 * @param books
+	 * @param payment
+	 * @throws Exception
+	 */
 	private void verifyOrder(User user, Address address, List<Book> books,
 			Payment payment) throws Exception {
-		// TODO: validate all parameters
+		if (user == null || user.getId() == null)
+			throw new Exception("Invalid userID.");
+		if (address == null || address.getId() == null)
+			throw new Exception("Address invalid.");
+		if (books == null || books.isEmpty())
+			throw new Exception("Your shopping cart is empty.");
+		if (payment == null || payment.getType() == null)
+			throw new Exception("Payment method not selected.");
 	}
 
 	@Override
-	public String cancelOrder(Short orderId) {
-		return null;
+	public String cancelOrder(Short orderID) {
+		try {
+			orderDAO.findOrderByID(orderID).setStatus(OrderStatus.CANCELED);
+			return "Order cancelled succesfully";
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 	}
 
 	@Override
-	public OrderStatus checkOrderStatus(Short orderId) {
-		return null;
+	public String checkOrderStatus(Short orderID) {
+		try {
+			return orderDAO.findOrderByID(orderID).getStatus();
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 	}
-
 }
