@@ -23,7 +23,7 @@ public final class BookClient {
 		factory.getOutInterceptors().add(new LoggingOutInterceptor());
 		// the following line is to bind for regular XML format instead of SOAP
 		// format
-		factory.setBindingId("http://cxf.apache.org/bindings/xformat");
+//		factory.setBindingId("http://cxf.apache.org/bindings/xformat");
 		factory.setServiceClass(ListBooks.class);
 		factory.setAddress("http://localhost:8080/project2/ListBooks/listAll");
 		ListBooks client = (ListBooks) factory.create();
