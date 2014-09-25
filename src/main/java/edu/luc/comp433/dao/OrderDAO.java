@@ -39,8 +39,8 @@ public class OrderDAO {
 		orders.add(newOrder);
 	}
 
-	public Orders findOrderByID(Short orderID) throws Exception {
-		for (Orders order : orders) {
+	public Order findOrderByID(Short orderID) throws Exception {
+		for (Order order : orders) {
 			if (order.getId().equals(orderID))
 				return order;
 		}
