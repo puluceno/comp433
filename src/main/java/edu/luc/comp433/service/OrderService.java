@@ -51,6 +51,6 @@ public interface OrderService {
 	 *            Order ID used to find the order an display its current status.
 	 * @return Current order status.
 	 */
-	public OrderStatus checkOrderStatus(Short orderId);
+	public String checkOrderStatus(Short orderId);
 
 }
