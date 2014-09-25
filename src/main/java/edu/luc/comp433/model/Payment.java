@@ -12,6 +12,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +24,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import edu.luc.comp433.model.enumerator.PaymentType;
 
 /**
  *
@@ -44,9 +51,11 @@ public class Payment implements Serializable {
 	@Basic(optional = false)
 	private Short id;
 	@Basic(optional = false)
-	private String type;
-	// @Max(value=?) @Min(value=?)//if you know range of your decimal fields
-	// consider using these annotations to enforce field validation
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private PaymentType type;
+	@Max(value = 99999)
+	@Min(value = 0)
 	@Basic(optional = false)
 	private BigDecimal amount;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "payment", fetch = FetchType.LAZY)
@@ -62,7 +71,7 @@ public class Payment implements Serializable {
 		this.id = id;
 	}
 
-	public Payment(Short id, String type, BigDecimal amount) {
+	public Payment(Short id, PaymentType type, BigDecimal amount) {
 		this.id = id;
 		this.type = type;
 		this.amount = amount;
@@ -77,10 +86,10 @@ public class Payment implements Serializable {
 	}
 
 	public String getType() {
-		return type;
+		return type.name();
 	}
 
-	public void setType(String type) {
+	public void setType(PaymentType type) {
 		this.type = type;
 	}
 

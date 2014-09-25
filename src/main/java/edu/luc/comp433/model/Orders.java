@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.luc.comp433.model;
 
 import java.io.Serializable;
@@ -10,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import edu.luc.comp433.model.enumerator.OrderStatus;
+
 /**
  *
- * @author pulu
+ * @author Thiago Vieira Puluceno
  */
 @Entity
 @Table(schema = "WS")
@@ -41,7 +41,9 @@ public class Orders implements Serializable {
 	@Basic(optional = false)
 	private Short id;
 	@Basic(optional = false)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private OrderStatus status;
 	@ManyToMany(mappedBy = "ordersList", fetch = FetchType.LAZY)
 	private List<Book> bookList;
 	@JoinColumn(name = "user", referencedColumnName = "id")
@@ -58,7 +60,7 @@ public class Orders implements Serializable {
 		this.id = id;
 	}
 
-	public Orders(Short id, String status) {
+	public Orders(Short id, OrderStatus status) {
 		this.id = id;
 		this.status = status;
 	}
@@ -72,10 +74,10 @@ public class Orders implements Serializable {
 	}
 
 	public String getStatus() {
-		return status;
+		return status.name();
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 
