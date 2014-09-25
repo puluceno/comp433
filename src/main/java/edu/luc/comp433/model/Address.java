@@ -6,18 +6,17 @@
 package edu.luc.comp433.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -55,8 +54,9 @@ public class Address implements Serializable {
 	private String city;
 	@Basic(optional = false)
 	private String state;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
-	private List<User> userList;
+	@JoinColumn(name = "user", referencedColumnName = "id")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private User user;
 
 	public Address() {
 	}
@@ -132,12 +132,12 @@ public class Address implements Serializable {
 	}
 
 	@XmlTransient
-	public List<User> getUserList() {
-		return userList;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
@@ -151,8 +151,7 @@ public class Address implements Serializable {
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
-		result = prime * result
-				+ ((userList == null) ? 0 : userList.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + zipcode;
 		return result;
 	}
@@ -196,10 +195,10 @@ public class Address implements Serializable {
 				return false;
 		} else if (!street.equals(other.street))
 			return false;
-		if (userList == null) {
-			if (other.userList != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!userList.equals(other.userList))
+		} else if (!user.equals(other.user))
 			return false;
 		if (zipcode != other.zipcode)
 			return false;

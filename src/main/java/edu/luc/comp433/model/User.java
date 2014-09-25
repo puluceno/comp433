@@ -13,8 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -45,9 +43,8 @@ public class User implements Serializable {
 	private String password;
 	@Basic(optional = false)
 	private String name;
-	@JoinColumn(name = "address", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Address address;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Address> addressList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Orders> ordersList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
@@ -99,12 +96,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public Address getAddress() {
-		return address;
+	public List<Address> getAddressList() {
+		return addressList;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddress(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	@XmlTransient
@@ -129,7 +126,8 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result
+				+ ((addressList == null) ? 0 : addressList.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -151,10 +149,10 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (address == null) {
-			if (other.address != null)
+		if (addressList == null) {
+			if (other.addressList != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} else if (!addressList.equals(other.addressList))
 			return false;
 		if (id == null) {
 			if (other.id != null)

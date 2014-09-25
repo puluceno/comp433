@@ -5,4 +5,10 @@ import javax.jws.WebService;
 @WebService
 public interface OrderService {
 
+	public String createOrder();
+
+	public String cancelOrder();
+
+	public String checkOrderStatus();
+
 }
