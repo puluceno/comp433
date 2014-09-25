@@ -6,8 +6,10 @@
 package edu.luc.comp433.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -57,6 +60,8 @@ public class Address implements Serializable {
 	@JoinColumn(name = "user", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private User user;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
+	private List<Orders> ordersList;
 
 	public Address() {
 	}
@@ -138,6 +143,14 @@ public class Address implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<Orders> getOrdersList() {
+		return ordersList;
+	}
+
+	public void setOrdersList(List<Orders> ordersList) {
+		this.ordersList = ordersList;
 	}
 
 	@Override

@@ -52,6 +52,9 @@ public class Orders implements Serializable {
 	@JoinColumn(name = "payment", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Payment payment;
+	@JoinColumn(name = "address", referencedColumnName = "id")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Address address;
 
 	public Orders() {
 	}
@@ -63,6 +66,14 @@ public class Orders implements Serializable {
 	public Orders(Short id, OrderStatus status) {
 		this.id = id;
 		this.status = status;
+	}
+
+	public Orders(User user, Address address, List<Book> bookList,
+			Payment payment) {
+		this.user = user;
+		this.address = address;
+		this.bookList = bookList;
+		this.payment = payment;
 	}
 
 	public Short getId() {
@@ -104,6 +115,14 @@ public class Orders implements Serializable {
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override
