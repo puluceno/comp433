@@ -8,7 +8,7 @@ import javax.jws.WebService;
 import edu.luc.comp433.model.Book;
 
 @WebService
-public interface ListBooks {
+public interface BooksService {
 	public List<Book> listAll();
 
 	public Book searchByTitle(String name);

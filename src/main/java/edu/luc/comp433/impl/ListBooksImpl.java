@@ -7,10 +7,10 @@ import javax.jws.WebService;
 
 import edu.luc.comp433.dao.BookDAO;
 import edu.luc.comp433.model.Book;
-import edu.luc.comp433.service.ListBooks;
+import edu.luc.comp433.service.BooksService;
 
 @WebService(endpointInterface = "edu.luc.comp433.service.ListBooks")
-public class ListBooksImpl implements ListBooks {
+public class ListBooksImpl implements BooksService {
 
 	BookDAO bookDAO = new BookDAO();
 
