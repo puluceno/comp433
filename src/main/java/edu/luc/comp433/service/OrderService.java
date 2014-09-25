@@ -8,7 +8,6 @@ import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.model.Payment;
 import edu.luc.comp433.model.User;
-import edu.luc.comp433.model.enumerator.OrderStatus;
 
 /**
  *
@@ -52,6 +51,6 @@ public interface OrderService {
 	 *            Order ID used to find the order an display its current status.
 	 * @return Current order status.
 	 */
-	public OrderStatus checkOrderStatus(Short orderId);
+	public String checkOrderStatus(Short orderId);
 
 }
