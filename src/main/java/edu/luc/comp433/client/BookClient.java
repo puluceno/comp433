@@ -13,6 +13,11 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.service.BooksService;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
 public final class BookClient {
 
 	private BookClient() {

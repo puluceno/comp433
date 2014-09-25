@@ -7,6 +7,11 @@ import javax.jws.WebService;
 
 import edu.luc.comp433.model.Book;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
 @WebService
 public interface BooksService {
 	public List<Book> listAll();

@@ -4,6 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
 public class Resources {
 	// @Produces
 	@PersistenceContext(type = PersistenceContextType.EXTENDED, unitName = "WS")

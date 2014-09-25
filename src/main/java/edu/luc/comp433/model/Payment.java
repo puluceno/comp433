@@ -34,7 +34,7 @@ import edu.luc.comp433.model.enumerator.PaymentType;
 
 /**
  *
- * @author pulu
+ * @author Thiago Vieira Puluceno
  */
 @Entity
 @Table(schema = "WS")

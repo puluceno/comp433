@@ -8,7 +8,13 @@ import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.model.Payment;
 import edu.luc.comp433.model.User;
+import edu.luc.comp433.model.enumerator.OrderStatus;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
 @WebService
 public interface OrderService {
 
@@ -23,7 +29,8 @@ public interface OrderService {
 	 *            Books in the order
 	 * @param payment
 	 *            Payment information
-	 * @return
+	 * @return Message to the user informing whether the order has been created
+	 *         successfully or not.
 	 */
 	public String createOrder(User user, Address address, List<Book> books,
 			Payment payment);
@@ -33,7 +40,8 @@ public interface OrderService {
 	 *
 	 * @param orderId
 	 *            Order ID used to find the order an then cancel it.
-	 * @return
+	 * @return Message to the user informing whether the order has been
+	 *         cancelled succesfully or not.
 	 */
 	public String cancelOrder(Short orderId);
 
@@ -42,8 +50,8 @@ public interface OrderService {
 	 *
 	 * @param orderId
 	 *            Order ID used to find the order an display its current status.
-	 * @return
+	 * @return Current order status.
 	 */
-	public String checkOrderStatus(Short orderId);
+	public OrderStatus checkOrderStatus(Short orderId);
 
 }

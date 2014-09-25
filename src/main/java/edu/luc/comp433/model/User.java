@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author pulu
+ * @author Thiago Vieira Puluceno
  */
 @Entity
 @Table(schema = "WS")

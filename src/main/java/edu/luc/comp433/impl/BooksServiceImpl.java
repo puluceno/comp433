@@ -9,8 +9,13 @@ import edu.luc.comp433.dao.BookDAO;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.service.BooksService;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
 @WebService(endpointInterface = "edu.luc.comp433.service.ListBooks")
-public class ListBooksImpl implements BooksService {
+public class BooksServiceImpl implements BooksService {
 
 	BookDAO bookDAO = new BookDAO();
 

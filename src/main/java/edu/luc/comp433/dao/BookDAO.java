@@ -8,6 +8,12 @@ import java.util.Random;
 
 import edu.luc.comp433.model.Book;
 
+/**
+ *
+ * @author Thiago Vieira Puluceno
+ *
+ */
+
 public class BookDAO {
 
 	private List<Book> books = new ArrayList<Book>();
