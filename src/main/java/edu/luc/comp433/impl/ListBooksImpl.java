@@ -20,18 +20,18 @@ public class ListBooksImpl implements ListBooks {
 	}
 
 	@Override
-	public List<Book> searchByTitle(String name) {
-		return null;
+	public Book searchByTitle(String title) {
+		return bookDAO.searchByTitle(title);
 	}
 
 	@Override
-	public List<Book> searchByAuthor(String name) {
-		return null;
+	public Book searchByAuthor(String author) {
+		return bookDAO.searchByAuthor(author);
 	}
 
 	@Override
-	public List<Book> searchByPrice(BigDecimal price) {
-		return null;
+	public Book searchByPrice(BigDecimal price) {
+		return bookDAO.searchByPrice(price);
 	}
 
 }

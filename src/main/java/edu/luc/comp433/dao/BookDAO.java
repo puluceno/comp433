@@ -1,31 +1,53 @@
 package edu.luc.comp433.dao;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import java.util.Random;
 
 import edu.luc.comp433.model.Book;
 
 public class BookDAO {
-	@Inject
-	EntityManager em;
 
-	private Book book = new Book();
+	private List<Book> books = new ArrayList<Book>();
 
 	public BookDAO() {
-		book.setTitle("title");
-		book.setAuthor("author");
-		book.setPrice(new BigDecimal(95.24));
+		for (int i = 1; i <= 10; i++) {
+			Book book = new Book();
+			book.setTitle("Title " + i);
+			book.setAuthor("Author " + i);
+			book.setPrice(new BigDecimal(new Random().nextInt(10000) / 100.0)
+					.setScale(2, RoundingMode.CEILING));
+			books.add(book);
+		}
 	}
 
-	// @SuppressWarnings("unchecked")
 	public List<Book> listAll() {
-		List<Book> books = new ArrayList<Book>();
-		books.add(book);
 		return books;
-		// return em.createNamedQuery(Book.LIST_ALL_BOOKS).getResultList();
+	}
+
+	public Book searchByTitle(String title) {
+		for (Book book : books) {
+			if (book.getTitle().equals(title))
+				return book;
+		}
+		return null;
+	}
+
+	public Book searchByAuthor(String author) {
+		for (Book book : books) {
+			if (book.getAuthor().equals(author))
+				return book;
+		}
+		return null;
+	}
+
+	public Book searchByPrice(BigDecimal price) {
+		for (Book book : books) {
+			if (book.getPrice().equals(price))
+				return book;
+		}
+		return null;
 	}
 }

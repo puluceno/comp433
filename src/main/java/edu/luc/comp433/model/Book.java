@@ -147,16 +147,6 @@ public class Book implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (ordersList == null) {
-			if (other.ordersList != null)
-				return false;
-		} else if (!ordersList.equals(other.ordersList))
-			return false;
-		if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;

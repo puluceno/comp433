@@ -10,8 +10,11 @@ import edu.luc.comp433.model.Book;
 @WebService
 public interface ListBooks {
 	public List<Book> listAll();
-	public List<Book> searchByTitle(String name);
-	public List<Book> searchByAuthor(String name);
-	public List<Book> searchByPrice(BigDecimal price);
+
+	public Book searchByTitle(String name);
+
+	public Book searchByAuthor(String name);
+
+	public Book searchByPrice(BigDecimal price);
 
 }
