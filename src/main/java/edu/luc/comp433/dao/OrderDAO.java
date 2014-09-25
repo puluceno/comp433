@@ -20,4 +20,8 @@ public class OrderDAO {
 		orders.add(new Orders(user, address, books, payment));
 	}
 
+	public void createOrder(Orders newOrder) throws Exception {
+		orders.add(newOrder);
+	}
+
 }

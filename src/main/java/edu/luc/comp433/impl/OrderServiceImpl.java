@@ -5,6 +5,7 @@ import java.util.List;
 import edu.luc.comp433.dao.OrderDAO;
 import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
+import edu.luc.comp433.model.Orders;
 import edu.luc.comp433.model.Payment;
 import edu.luc.comp433.model.User;
 import edu.luc.comp433.model.enumerator.OrderStatus;
@@ -22,19 +23,32 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String createOrder(User user, Address address, List<Book> books,
 			Payment payment) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			verifyOrder(user, address, books, payment);
+		} catch (Exception e) {
+
+		}
+		try {
+			orderDAO.createOrder(new Orders(user, address, books, payment));
+			return "Order created!";
+		} catch (Exception e) {
+			return "System error";
+		}
+	}
+
+	private void verifyOrder(User user, Address address, List<Book> books,
+			Payment payment) throws Exception {
+		// TODO: validate all parameters
 	}
 
 	@Override
 	public String cancelOrder(Short orderId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public OrderStatus checkOrderStatus(Short orderId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
