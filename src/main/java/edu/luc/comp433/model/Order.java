@@ -1,9 +1,10 @@
 package edu.luc.comp433.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,14 +28,14 @@ import edu.luc.comp433.model.enumerator.OrderStatus;
  *
  * @author Thiago Vieira Puluceno
  */
-@Entity
-@Table(schema = "WS")
+@Entity(name="Order_")
+@Table(schema = "bookstore")
 @XmlRootElement
 @NamedQueries({
-		@NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
-		@NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id = :id"),
-		@NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.status = :status") })
-public class Order implements Serializable {
+		@NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order_ o"),
+		@NamedQuery(name = "Order.findById", query = "SELECT o FROM Order_ o WHERE o.id = :id"),
+		@NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order_ o WHERE o.status = :status") })
+public class Order implements BaseEntity<Short> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,15 +46,15 @@ public class Order implements Serializable {
 	@NotNull
 	private OrderStatus status;
 	@ManyToMany(mappedBy = "orderList", fetch = FetchType.LAZY)
-	private List<Book> bookList;
-	@JoinColumn(name = "user", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User user;
+	private List<Book> bookList = new ArrayList<Book>();
+	@JoinColumn(name = "customer", referencedColumnName = "id")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Customer customer;
 	@JoinColumn(name = "payment", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Payment payment;
 	@JoinColumn(name = "address", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Address address;
 
 	public Order() {
@@ -68,9 +69,9 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public Order(User user, Address address, List<Book> bookList,
+	public Order(Customer customer, Address address, List<Book> bookList,
 			Payment payment) {
-		this.user = user;
+		this.customer = customer;
 		this.address = address;
 		this.bookList = bookList;
 		this.payment = payment;
@@ -84,8 +85,8 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public String getStatus() {
-		return status.name();
+	public OrderStatus getStatus() {
+		return status;
 	}
 
 	public void setStatus(OrderStatus status) {
@@ -101,12 +102,12 @@ public class Order implements Serializable {
 		this.bookList = bookList;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Payment getPayment() {
@@ -134,7 +135,7 @@ public class Order implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((payment == null) ? 0 : payment.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		return result;
 	}
 
@@ -167,10 +168,10 @@ public class Order implements Serializable {
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (customer == null) {
+			if (other.customer != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!customer.equals(other.customer))
 			return false;
 		return true;
 	}

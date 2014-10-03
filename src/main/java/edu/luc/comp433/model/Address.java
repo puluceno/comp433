@@ -5,7 +5,7 @@
  */
 package edu.luc.comp433.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "WS")
+@Table(schema = "bookstore")
 @XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
 		@NamedQuery(name = "Address.findByZipcode", query = "SELECT a FROM Address a WHERE a.zipcode = :zipcode"),
 		@NamedQuery(name = "Address.findByCity", query = "SELECT a FROM Address a WHERE a.city = :city"),
 		@NamedQuery(name = "Address.findByState", query = "SELECT a FROM Address a WHERE a.state = :state") })
-public class Address implements Serializable {
+public class Address implements BaseEntity<Short> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,11 +57,11 @@ public class Address implements Serializable {
 	private String city;
 	@Basic(optional = false)
 	private String state;
-	@JoinColumn(name = "user", referencedColumnName = "id")
+	@JoinColumn(name = "customer", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User user;
+	private Customer customer;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "address", fetch = FetchType.LAZY)
-	private List<Order> orderList;
+	private List<Order> orderList = new ArrayList<Order>();
 
 	public Address() {
 	}
@@ -137,12 +137,12 @@ public class Address implements Serializable {
 	}
 
 	@XmlTransient
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public List<Order> getOrderList() {
@@ -164,7 +164,7 @@ public class Address implements Serializable {
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + zipcode;
 		return result;
 	}
@@ -208,10 +208,10 @@ public class Address implements Serializable {
 				return false;
 		} else if (!street.equals(other.street))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (customer == null) {
+			if (other.customer != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!customer.equals(other.customer))
 			return false;
 		if (zipcode != other.zipcode)
 			return false;

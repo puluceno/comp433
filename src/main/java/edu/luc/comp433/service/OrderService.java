@@ -6,8 +6,10 @@ import javax.jws.WebService;
 
 import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
+import edu.luc.comp433.model.Customer;
+import edu.luc.comp433.model.Order;
 import edu.luc.comp433.model.Payment;
-import edu.luc.comp433.model.User;
+import edu.luc.comp433.model.enumerator.OrderStatus;
 
 /**
  *
@@ -15,23 +17,23 @@ import edu.luc.comp433.model.User;
  *
  */
 @WebService
-public interface OrderService {
+public interface OrderService extends BaseService<Short, Order> {
 
 	/**
-	 * Creates an order for the given user.
+	 * Creates an order for the given customer.
 	 *
-	 * @param user
-	 *            User who created the order
+	 * @param customer
+	 *            Customer who created the order
 	 * @param address
 	 *            Address to delivery
 	 * @param books
 	 *            Books in the order
 	 * @param payment
 	 *            Payment information
-	 * @return Message to the user informing whether the order has been created
+	 * @return Message to the customer informing whether the order has been created
 	 *         successfully or not.
 	 */
-	public String createOrder(User user, Address address, List<Book> books,
+	public Short createOrder(Customer customer, Address address, List<Book> books,
 			Payment payment);
 
 	/**
@@ -39,10 +41,9 @@ public interface OrderService {
 	 *
 	 * @param orderId
 	 *            Order ID used to find the order an then cancel it.
-	 * @return Message to the user informing whether the order has been
-	 *         cancelled succesfully or not.
+	 * @return true if order is cancelled, otherwise false.
 	 */
-	public String cancelOrder(Short orderId);
+	public Boolean cancelOrder(Short orderId);
 
 	/**
 	 * Check the order status for a given order id
@@ -51,6 +52,6 @@ public interface OrderService {
 	 *            Order ID used to find the order an display its current status.
 	 * @return Current order status.
 	 */
-	public String checkOrderStatus(Short orderId);
+	public OrderStatus checkOrderStatus(Short orderId);
 
 }

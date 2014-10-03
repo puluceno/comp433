@@ -13,14 +13,16 @@ import edu.luc.comp433.model.Book;
  *
  */
 @WebService
-public interface BookService {
+public interface BookService extends BaseService<Short, Book> {
 	
-	public List<Book> listAll();
+	public List<Book> searchBookByIds(List<Short> ids);
+	
+	public List<Book> listAllBooks();
+	
+	public List<Book> searchBookByTitle(String name);
 
-	public Book searchByTitle(String name);
+	public List<Book> searchBookByAuthor(String name);
 
-	public Book searchByAuthor(String name);
-
-	public Book searchByPrice(BigDecimal price);
-
+	public List<Book> searchBookByPrice(BigDecimal minPrice, BigDecimal maxPrice);
+	
 }

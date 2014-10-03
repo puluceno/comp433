@@ -1,13 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://cxf.apache.org/jaxws
-						http://cxf.apache.org/schemas/jaxws.xsd">
-   
-   <import resource="classpath:META-INF/cxf/cxf.xml" /> 
-   <jaxws:endpoint id="listAllBooks" implementor="edu.luc.comp433.impl.ListBooksImpl" 
-		address="/listAll" bindingUri="http://cxf.apache.org/bindings/xformat"/>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+
+	<jaxws:endpoint id="bookServices" implementor="edu.luc.comp433.service.impl.BookServiceImpl"
+		address="/Book"/>
+	
+	<jaxws:endpoint id="customerServices" implementor="edu.luc.comp433.service.impl.CustomerServiceImpl"
+		address="/Customer"/>
 		
+	<jaxws:endpoint id="orderServices" implementor="edu.luc.comp433.service.impl.OrderServiceImpl"
+		address="/Order"/>
+		
+	<jaxws:endpoint id="addressServices" implementor="edu.luc.comp433.service.impl.AddressServiceImpl"
+		address="/Address"/>
+	
+	<jaxws:endpoint id="paymentServices" implementor="edu.luc.comp433.service.impl.PaymentServiceImpl"
+		address="/Payment"/>
+
 </beans>

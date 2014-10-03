@@ -5,8 +5,8 @@
  */
 package edu.luc.comp433.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -31,17 +31,25 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "WS")
+@Table(schema = "bookstore")
 @XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = Book.LIST_ALL_BOOKS, query = "SELECT b FROM Book b"),
-		@NamedQuery(name = "Book.findById", query = "SELECT b FROM Book b WHERE b.id = :id"),
-		@NamedQuery(name = "Book.findByTitle", query = "SELECT b FROM Book b WHERE b.title = :title"),
-		@NamedQuery(name = "Book.findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author"),
-		@NamedQuery(name = "Book.findByPrice", query = "SELECT b FROM Book b WHERE b.price = :price") })
-public class Book implements Serializable {
+		@NamedQuery(name = Book.FIND_BY_ID, query = "SELECT b FROM Book b WHERE b.id = :id"),
+		@NamedQuery(name = Book.FIND_BY_IDS, query = "SELECT b FROM Book b WHERE b.id in :idsList"),
+		@NamedQuery(name = Book.FIND_BY_TITLE, query = "SELECT b FROM Book b WHERE b.title like :title"),
+		@NamedQuery(name = Book.FIND_BY_AUTHOR, query = "SELECT b FROM Book b WHERE b.author like :author"),
+		@NamedQuery(name = Book.FIND_BY_PRICE, query = "SELECT b FROM Book b WHERE b.price >= :minPrice and b.price <= :maxPrice") })
+public class Book implements BaseEntity<Short> {
+
+
 	private static final long serialVersionUID = 1L;
 
+	public static final String FIND_BY_ID = "Book.findById";
+	public static final String FIND_BY_IDS = "Book.findByIds";
+	public static final String FIND_BY_AUTHOR = "Book.findByAuthor";
+	public static final String FIND_BY_TITLE = "Book.findByTitle";
+	public static final String FIND_BY_PRICE = "Book.findByPrice";
 	public static final String LIST_ALL_BOOKS = "LIST_ALL_BOOKS";
 
 	@Id
@@ -56,9 +64,9 @@ public class Book implements Serializable {
 	@Min(value = 0)
 	@Basic(optional = false)
 	private BigDecimal price;
-	@JoinTable(name = "Order_has_Book", joinColumns = { @JoinColumn(name = "book", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order", referencedColumnName = "id") })
+	@JoinTable(schema="bookstore", name = "Order_has_Book", joinColumns = { @JoinColumn(name = "book", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "order_", referencedColumnName = "id") })
 	@ManyToMany(fetch = FetchType.LAZY)
-	private List<Order> orderList;
+	private List<Order> orderList = new ArrayList<Order>();
 
 	public Book() {
 	}

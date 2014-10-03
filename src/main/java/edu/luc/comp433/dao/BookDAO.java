@@ -1,11 +1,12 @@
 package edu.luc.comp433.dao;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
+import javax.persistence.NoResultException;
+
+import edu.luc.comp433.dao.impl.BaseDaoImpl;
 import edu.luc.comp433.model.Book;
 
 /**
@@ -14,46 +15,40 @@ import edu.luc.comp433.model.Book;
  *
  */
 
-public class BookDAO {
+public class BookDAO extends BaseDaoImpl<Short, Book> {
 
-	private List<Book> books = new ArrayList<Book>();
-
-	public BookDAO() {
-		for (int i = 1; i <= 10; i++) {
-			Book book = new Book();
-			book.setTitle("Title " + i);
-			book.setAuthor("Author " + i);
-			book.setPrice(new BigDecimal(new Random().nextInt(10000) / 100.0)
-					.setScale(2, RoundingMode.CEILING));
-			books.add(book);
+	public List<Book> searchByTitle(String title) {
+		try {
+			return super.getEntityManager()
+					.createNamedQuery(Book.FIND_BY_TITLE, Book.class)
+					.setParameter("title", "%" + title + "%")
+					.getResultList();
+		} catch (NoResultException e) {
+			return Collections.emptyList();
 		}
 	}
 
-	public List<Book> listAll() {
-		return books;
+	public List<Book> searchByAuthor(String author) {
+		try {
+			return super.getEntityManager()
+					.createNamedQuery(Book.FIND_BY_AUTHOR, Book.class)
+					.setParameter("author", "%" + author + "%")
+					.getResultList();
+		} catch (NoResultException e) {
+			return Collections.emptyList();
+		}
 	}
 
-	public Book searchByTitle(String title) {
-		for (Book book : books) {
-			if (book.getTitle().equals(title))
-				return book;
+	public List<Book> searchByPrice(BigDecimal minPrice, BigDecimal maxPrice) {
+		try {
+			return super.getEntityManager()
+					.createNamedQuery(Book.FIND_BY_PRICE, Book.class)
+					.setParameter("minPrice", minPrice)
+					.setParameter("maxPrice", maxPrice)
+					.getResultList();
+		} catch (NoResultException e) {
+			return Collections.emptyList();
 		}
-		return null;
 	}
 
-	public Book searchByAuthor(String author) {
-		for (Book book : books) {
-			if (book.getAuthor().equals(author))
-				return book;
-		}
-		return null;
-	}
-
-	public Book searchByPrice(BigDecimal price) {
-		for (Book book : books) {
-			if (book.getPrice().equals(price))
-				return book;
-		}
-		return null;
-	}
 }

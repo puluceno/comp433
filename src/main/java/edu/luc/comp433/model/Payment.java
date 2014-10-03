@@ -5,8 +5,8 @@
  */
 package edu.luc.comp433.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -37,14 +37,14 @@ import edu.luc.comp433.model.enumerator.PaymentType;
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "WS")
+@Table(schema = "bookstore")
 @XmlRootElement
 @NamedQueries({
 		@NamedQuery(name = "Payment.findAll", query = "SELECT p FROM Payment p"),
 		@NamedQuery(name = "Payment.findById", query = "SELECT p FROM Payment p WHERE p.id = :id"),
 		@NamedQuery(name = "Payment.findByType", query = "SELECT p FROM Payment p WHERE p.type = :type"),
 		@NamedQuery(name = "Payment.findByAmount", query = "SELECT p FROM Payment p WHERE p.amount = :amount") })
-public class Payment implements Serializable {
+public class Payment implements BaseEntity<Short> {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,10 +59,22 @@ public class Payment implements Serializable {
 	@Basic(optional = false)
 	private BigDecimal amount;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "payment", fetch = FetchType.LAZY)
-	private List<Order> orderList;
-	@JoinColumn(name = "user", referencedColumnName = "id")
+	private List<Order> orderList = new ArrayList<Order>();
+	@JoinColumn(name = "customer", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private User user;
+	private Customer customer;
+	@Basic(optional = true)
+	private String cardNumber;
+	@Basic(optional = true)
+    private String cardHolderName;
+	@Basic(optional = true)
+    private int expirationMonth;
+	@Basic(optional = true)
+    private int expirationYear;
+	@Basic(optional = true)
+    private int securityCode;
+	
+	
 
 	public Payment() {
 	}
@@ -85,8 +97,8 @@ public class Payment implements Serializable {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type.name();
+	public PaymentType getType() {
+		return type;
 	}
 
 	public void setType(PaymentType type) {
@@ -110,12 +122,82 @@ public class Payment implements Serializable {
 		this.orderList = orderList;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	/**
+	 * @return the cardNumber
+	 */
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	/**
+	 * @param cardNumber the cardNumber to set
+	 */
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	/**
+	 * @return the cardHolderName
+	 */
+	public String getCardHolderName() {
+		return cardHolderName;
+	}
+
+	/**
+	 * @param cardHolderName the cardHolderName to set
+	 */
+	public void setCardHolderName(String cardHolderName) {
+		this.cardHolderName = cardHolderName;
+	}
+
+	/**
+	 * @return the expirationMonth
+	 */
+	public int getExpirationMonth() {
+		return expirationMonth;
+	}
+
+	/**
+	 * @param expirationMonth the expirationMonth to set
+	 */
+	public void setExpirationMonth(int expirationMonth) {
+		this.expirationMonth = expirationMonth;
+	}
+
+	/**
+	 * @return the expirationYear
+	 */
+	public int getExpirationYear() {
+		return expirationYear;
+	}
+
+	/**
+	 * @param expirationYear the expirationYear to set
+	 */
+	public void setExpirationYear(int expirationYear) {
+		this.expirationYear = expirationYear;
+	}
+
+	/**
+	 * @return the securityCode
+	 */
+	public int getSecurityCode() {
+		return securityCode;
+	}
+
+	/**
+	 * @param securityCode the securityCode to set
+	 */
+	public void setSecurityCode(int securityCode) {
+		this.securityCode = securityCode;
 	}
 
 	@Override
@@ -127,7 +209,7 @@ public class Payment implements Serializable {
 		result = prime * result
 				+ ((orderList == null) ? 0 : orderList.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		return result;
 	}
 
@@ -160,10 +242,10 @@ public class Payment implements Serializable {
 				return false;
 		} else if (!type.equals(other.type))
 			return false;
-		if (user == null) {
-			if (other.user != null)
+		if (customer == null) {
+			if (other.customer != null)
 				return false;
-		} else if (!user.equals(other.user))
+		} else if (!customer.equals(other.customer))
 			return false;
 		return true;
 	}

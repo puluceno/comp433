@@ -5,13 +5,15 @@
  */
 package edu.luc.comp433.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,16 +27,17 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Thiago Vieira Puluceno
  */
 @Entity
-@Table(schema = "WS")
+@Table(schema = "bookstore")
 @XmlRootElement
 @NamedQueries({
-		@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-		@NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-		@NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
-		@NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name") })
-public class User implements Serializable {
+		@NamedQuery(name = "Customer.findAll", query = "SELECT u FROM Customer u"),
+		@NamedQuery(name = "Customer.findById", query = "SELECT u FROM Customer u WHERE u.id = :id"),
+		@NamedQuery(name = "Customer.findByLogin", query = "SELECT u FROM Customer u WHERE u.login = :login"),
+		@NamedQuery(name = "Customer.findByName", query = "SELECT u FROM Customer u WHERE u.name = :name") })
+public class Customer implements BaseEntity<Short> {
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	private Short id;
 	@Basic(optional = false)
@@ -43,21 +46,21 @@ public class User implements Serializable {
 	private String password;
 	@Basic(optional = false)
 	private String name;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Address> addressList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Order> orderList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Payment> paymentList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Address> addressList = new ArrayList<Address>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Order> orderList = new ArrayList<Order>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Payment> paymentList = new ArrayList<Payment>();
 
-	public User() {
+	public Customer() {
 	}
 
-	public User(Short id) {
+	public Customer(Short id) {
 		this.id = id;
 	}
 
-	public User(Short id, String login, String password, String name) {
+	public Customer(Short id, String login, String password, String name) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
@@ -148,7 +151,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Customer other = (Customer) obj;
 		if (addressList == null) {
 			if (other.addressList != null)
 				return false;
@@ -189,7 +192,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "model.User[ id=" + id + " ]";
+		return "model.Customer[ id=" + id + " ]";
 	}
 
 }
