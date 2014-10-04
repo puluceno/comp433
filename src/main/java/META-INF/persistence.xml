@@ -8,6 +8,7 @@
 		<class>edu.luc.comp433.model.Order</class>
 		<class>edu.luc.comp433.model.Payment</class>
 		<class>edu.luc.comp433.model.Customer</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
 			<property name="javax.persistence.jdbc.url"	value="jdbc:derby:memory:bookStoreDB;create=true" />
