@@ -26,3 +26,4 @@ public interface BookService extends BaseService<Short, Book> {
 	public List<Book> searchBookByPrice(BigDecimal minPrice, BigDecimal maxPrice);
 	
 }
+

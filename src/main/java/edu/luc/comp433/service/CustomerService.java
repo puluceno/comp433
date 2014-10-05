@@ -27,3 +27,4 @@ public interface CustomerService extends BaseService<Short, Customer> {
 	public Customer createOrUpdateCustomer(Customer customer, Address address,
 			Payment payment);
 }
+

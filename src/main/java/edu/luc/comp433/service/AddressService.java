@@ -20,3 +20,4 @@ public interface AddressService extends BaseService<Short, Address> {
 	public List<Address> findAddressByCustomerId(Short customerId);
 	
 }
+

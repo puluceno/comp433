@@ -20,3 +20,4 @@ public interface OrderDao extends BaseDao<Short, Order> {
 	List<Order> findOrderByCustomerLogin(String login);
 
 }
+

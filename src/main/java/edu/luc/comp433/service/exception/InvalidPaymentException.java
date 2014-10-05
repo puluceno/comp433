@@ -15,3 +15,4 @@ public class InvalidPaymentException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 }
+

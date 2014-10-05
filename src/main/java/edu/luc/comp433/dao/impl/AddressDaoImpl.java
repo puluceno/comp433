@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.luc.comp433.dao.impl;
 
 import java.util.Collections;
@@ -31,3 +28,4 @@ public class AddressDaoImpl extends BaseDaoImpl<Short, Address> implements
 	}
 
 }
+

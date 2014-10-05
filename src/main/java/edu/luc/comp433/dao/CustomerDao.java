@@ -18,3 +18,4 @@ public interface CustomerDao extends BaseDao<Short, Customer> {
 	Customer findByLogin(String login);
 
 }
+

@@ -111,3 +111,4 @@ public class BaseDaoImpl<I extends Number, E extends BaseEntity<I>> implements
 	}
 
 }
+

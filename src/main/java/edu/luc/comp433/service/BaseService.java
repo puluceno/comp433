@@ -12,3 +12,4 @@ import edu.luc.comp433.model.BaseEntity;
 public interface BaseService<I extends Number, E extends BaseEntity<I>> {
 	
 }
+

@@ -14,3 +14,4 @@ public class BaseServiceImpl<I extends Number, E extends BaseEntity<I>>
 		implements BaseService<I, E> {
 
 }
+

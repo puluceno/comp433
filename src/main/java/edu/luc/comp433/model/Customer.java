@@ -196,3 +196,4 @@ public class Customer implements BaseEntity<Short> {
 	}
 
 }
+

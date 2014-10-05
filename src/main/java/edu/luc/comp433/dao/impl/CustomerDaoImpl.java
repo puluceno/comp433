@@ -31,3 +31,4 @@ public class CustomerDaoImpl extends BaseDaoImpl<Short, Customer> implements Cus
 	}
 
 }
+

@@ -46,3 +46,4 @@ public class BookServiceImpl extends BaseServiceImpl<Short, Book> implements
 		return bookDAO.findById(ids);
 	}
 }
+

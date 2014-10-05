@@ -24,3 +24,4 @@ public class OrderDaoImpl extends BaseDaoImpl<Short, Order> implements OrderDao 
 	}
 
 }
+

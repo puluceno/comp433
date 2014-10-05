@@ -24,3 +24,4 @@ public interface BaseDao<I extends Number, E extends BaseEntity<I>> {
     EntityManager getEntityManager();
     
 }
+

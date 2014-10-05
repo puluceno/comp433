@@ -8,3 +8,4 @@ public interface BaseEntity<I extends Number> extends Serializable  {
 	void setId(I id);
 	
 }
+

@@ -21,3 +21,4 @@ public interface PaymentService extends BaseService<Short, Payment> {
 	public List<Payment> findPaymentByCustomerId(Short customerId);
 	
 }
+

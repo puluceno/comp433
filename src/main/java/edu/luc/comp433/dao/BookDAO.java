@@ -52,3 +52,4 @@ public class BookDAO extends BaseDaoImpl<Short, Book> {
 	}
 
 }
+

@@ -13,3 +13,4 @@ import edu.luc.comp433.model.Payment;
 public class PaymentDaoImpl extends BaseDaoImpl<Short, Payment>  implements PaymentDao {
 
 }
+

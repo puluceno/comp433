@@ -12,3 +12,4 @@ import edu.luc.comp433.model.Payment;
 public interface PaymentDao extends BaseDao<Short, Payment> {
 
 }
+
