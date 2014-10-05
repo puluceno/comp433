@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao customerDao = new CustomerDaoImpl();
 	
 	public Customer findCustomerByLogin(@WebParam(name = "customerLogin") String login) {
-		return null;
+		return customerDao.findByLogin(login);
 	}
 
 	@Override

@@ -145,6 +145,7 @@ public class Address implements BaseEntity<Short> {
 		this.customer = customer;
 	}
 
+	@XmlTransient
 	public List<Order> getOrderList() {
 		return orderList;
 	}

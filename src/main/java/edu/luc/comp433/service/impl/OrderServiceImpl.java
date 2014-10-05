@@ -7,7 +7,8 @@ import java.util.List;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
-import edu.luc.comp433.dao.OrderDAO;
+import edu.luc.comp433.dao.OrderDao;
+import edu.luc.comp433.dao.impl.OrderDaoImpl;
 import edu.luc.comp433.model.Address;
 import edu.luc.comp433.model.Book;
 import edu.luc.comp433.model.Customer;
@@ -26,7 +27,7 @@ import edu.luc.comp433.service.exception.OrderNotFoundException;
 @WebService(endpointInterface = "edu.luc.comp433.service.OrderService")
 public class OrderServiceImpl implements OrderService {
 
-	private OrderDAO orderDao = new OrderDAO();
+	private OrderDao orderDao = new OrderDaoImpl();
 	private CustomerService customerService = new CustomerServiceImpl();
 
 	@Override
@@ -36,8 +37,6 @@ public class OrderServiceImpl implements OrderService {
 			@WebParam(name = "payment") Payment payment) {
 
 		try {
-			
-				
 			if (null == books)
 				books = Collections.emptyList();
 				
@@ -47,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
 			BigDecimal amount = new BigDecimal(0);
 			
 			for (Book book: books) {
-				amount.add(book.getPrice());
+				amount = amount.add(book.getPrice());
 				book.getOrderList().add(order);
 			}
 				
@@ -102,6 +101,11 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		throw new OrderNotFoundException(orderId);
+	}
+
+	@Override
+	public List<Order> findOrderByCustomerLogin(String login) {
+		return orderDao.findOrderByCustomerLogin(login);
 	}
 
 }

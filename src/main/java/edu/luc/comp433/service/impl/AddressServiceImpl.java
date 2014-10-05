@@ -3,7 +3,6 @@
  */
 package edu.luc.comp433.service.impl;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.jws.WebParam;
@@ -25,7 +24,7 @@ public class AddressServiceImpl implements AddressService {
 	
 	@Override
 	public List<Address> findAddressByCustomerId(@WebParam(name="customerId") Short customerId) {
-		return Collections.emptyList();
+		return addressDao.findAddressByCustomerId(customerId);
 	}
 
 	@Override

@@ -11,4 +11,10 @@ import edu.luc.comp433.model.Customer;
  */
 public interface CustomerDao extends BaseDao<Short, Customer> {
 
+	/**
+	 * @param login
+	 * @return
+	 */
+	Customer findByLogin(String login);
+
 }

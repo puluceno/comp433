@@ -53,5 +53,14 @@ public interface OrderService extends BaseService<Short, Order> {
 	 * @return Current order status.
 	 */
 	public OrderStatus checkOrderStatus(Short orderId);
+	
+	/**
+	 * Locate orders from specific customer
+	 * 
+	 * @param login
+	 * 			Login of the customer
+	 * @return List of orders sorted by Status.
+	 */
+	List<Order> findOrderByCustomerLogin(String login);
 
 }

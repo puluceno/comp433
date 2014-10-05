@@ -3,6 +3,8 @@
  */
 package edu.luc.comp433.dao;
 
+import java.util.List;
+
 import edu.luc.comp433.model.Address;
 
 /**
@@ -10,5 +12,11 @@ import edu.luc.comp433.model.Address;
  *
  */
 public interface AddressDao extends BaseDao<Short, Address> {
+
+	/**
+	 * @param customerId
+	 * @return
+	 */
+	List<Address> findAddressByCustomerId(Short customerId);
 
 }
