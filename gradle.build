@@ -1,0 +1,10 @@
+time = 60*61;
+interval = setInterval(function() {
+    time--;
+    if (time == 0) {
+        // stop timer
+        clearInterval(interval);
+        // click
+        document.getElementById('ext-gen43').click();            
+    }
+}, 1000)
